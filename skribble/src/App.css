@@ -1,0 +1,14 @@
+body {
+    background: #f0f4ff;
+    background-image: radial-gradient(circle at 20% 50%, #ffe0f0 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, #e0f0ff 0%, transparent 50%);
+}
+
+
+h1 {
+    text-align: center;
+    font-size: 3vw;
+    font-family: 'Fredoka One', cursive;
+    font-size: 3rem;
+    color: #ff6b6b;
+}

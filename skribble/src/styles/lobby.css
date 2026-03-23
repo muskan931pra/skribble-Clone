@@ -1,0 +1,59 @@
+#lobby {
+    max-width: 40vw;
+    margin: 10vw auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    padding: 50px;
+}
+
+#lobby input {
+    width: 100%;
+    height: 2vw;
+    padding: 3% 2%;
+    font-size: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    margin-bottom: 5%;
+    outline: none;
+    box-sizing: border-box;
+}
+
+#lobby button {
+    width: 100%;
+    padding: 13px;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+button:hover {
+    background: #ff5252;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+@media (max-width: 480px) {
+    #lobby {
+        margin: 30px auto;
+        padding: 24px;
+    }
+    #lobby h1{
+        font-size: 2rem;
+    }
+    #lobby input, #lobby button {
+        font-size: 16px;   
+        width: 100%;
+        padding: 10px;
+        margin: 2px;
+    }
+}

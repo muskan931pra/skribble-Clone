@@ -1,0 +1,6 @@
+canvas {
+    border: 3px solid transparent;
+    border-radius: 10px;
+    background: linear-gradient(white white white) padding-box,
+                linear-gradient(135deg, #666eea #764ba2) border-box;
+}
