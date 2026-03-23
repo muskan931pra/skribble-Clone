@@ -9,7 +9,7 @@ function Canvas({ isDrawer }) {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
 
-        socket.on("draw", ({x, y}) => {
+        socket.on("draw", ({ x, y }) => {
             ctx.lineTo(x, y);
             ctx.stroke();
             ctx.beginPath();
@@ -19,6 +19,38 @@ function Canvas({ isDrawer }) {
             ctx.clearRect(0, 0, canvas.width, canvas.height)
         })
     }, []);
+    const handleTouchStart = (e) => {
+        if (!isDrawer) return;
+        e.preventDefault();
+        const touch = e.touches[0];
+        const rect = canvasRef.current.getBoundingClientRect();
+        drawing.current = true;
+        socket.emit("draw", {
+            x: touch.clientX - rect.left,
+            y: touch.clientY - rect.top,
+            type: "start"
+        });
+    }
+    const handleTouchMove = (e) => {
+        if (!drawing.current || !isDrawer) return;
+        e.preventDefault();
+        const touch = e.touches[0];
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+        const rect = canvas.getBoundingClientRect();
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+
+        socket.emit("draw", { x, y, type: "move" });
+    }
+    const handleTouchEnd = () => {
+        drawing.current = false;
+    }
     return (
         <>
             <canvas id="canvas" ref={canvasRef} width="700" height="400" style={{ width: "100%", height: "auto" }} onMouseDown={() => {
@@ -35,7 +67,9 @@ function Canvas({ isDrawer }) {
                 const y = e.clientY - rect.top;
 
                 socket.emit("draw", { x, y });
-            }}></canvas>
+            }} onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}></canvas >
         </>
     )
 }
