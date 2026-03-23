@@ -16,6 +16,8 @@ function Canvas({ isDrawer }) {
             if (type === "start") {
                 ctx.beginPath();
                 ctx.moveTo(x, y);
+            }else if(type === "stop"){
+                ctx.beginPath();
             } else {
                 ctx.lineTo(x, y);
                 ctx.stroke();
@@ -54,7 +56,13 @@ function Canvas({ isDrawer }) {
 
     const handleMouseUp = () => {
         drawing.current = false;
+        socket.emit("draw", {x: 0, y: 0, type: "stop"});
     };
+
+    const handleMouseLeave = ()=>{
+        drawing.current = false;
+        socket.emit("draw", {x: 0, y: 0, type: "stop"});
+    }
 
     const handleMouseMove = (e) => {  // ✅ proper move handler
         if (!drawing.current || !isDrawer) return;
@@ -100,6 +108,7 @@ function Canvas({ isDrawer }) {
 
     const handleTouchEnd = () => {
         drawing.current = false;
+        socket.emit("draw", {x: 0, y: 0, type: "stop"});
     };
 
     return (
@@ -111,7 +120,7 @@ function Canvas({ isDrawer }) {
             style={{ width: "100%", height: "auto" }}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
             onMouseMove={handleMouseMove}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
