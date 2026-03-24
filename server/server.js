@@ -131,7 +131,10 @@ function startNextRound() {
     const options = [...words].sort(() => 0.5 - Math.random()).slice(0, 3);
     io.to(drawerId).emit("wordOptions", options);
 }
-
+const https = require("https");
+setInterval(() => {
+    https.get("https://skribble-server-9v21.onrender.com");
+}, 10 * 60 * 1000);
 server.listen(3000, () => {
     console.log("Server running on port 3000");
 })
